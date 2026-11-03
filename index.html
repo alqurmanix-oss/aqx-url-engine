@@ -2,297 +2,593 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <script src="https://5gvci.com/act/files/tag.min.js?z=12181609" data-cfasync="false" async></script>
-  <meta name="monetag" content="5ab234b7b50ccf0501949f3680f1f5d8">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#101827">
-  <title>AQX | اختصار الروابط</title>
+  <meta name="theme-color" content="#081326">
+  <meta name="description" content="AQX - اختصر روابطك بسهولة وسرعة، واحصل على رابط مختصر ورمز خاص للاستعلام عن الإحصائيات.">
+  <title>AQX | اختصر روابطك بذكاء</title>
 
   <style>
-    * {
-      box-sizing: border-box;
+    :root {
+      --bg: #081326;
+      --panel: #101f36;
+      --panel2: #142640;
+      --border: rgba(148, 181, 218, .16);
+      --text: #f5f8ff;
+      --muted: #a9b9ce;
+      --cyan: #50e1d0;
+      --blue: #5d9cff;
+      --danger: #ff7777;
+      --success: #62e6ad;
     }
+
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
       min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 15% 5%, rgba(38, 128, 178, .2), transparent 38%),
+        radial-gradient(ellipse at 90% 45%, rgba(61, 90, 180, .15), transparent 40%),
+        var(--bg);
       font-family: Tahoma, Arial, sans-serif;
-      background: linear-gradient(145deg, #101827, #172b45);
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
     }
+
+    button, input { font: inherit; }
 
     .container {
-      width: 100%;
-      max-width: 510px;
-      background: #fff;
-      color: #172033;
-      border-radius: 22px;
-      padding: 30px 24px;
-      box-shadow: 0 20px 60px #0005;
+      width: min(1100px, 92%);
+      margin: auto;
     }
 
-    .logo {
-      text-align: center;
-      font-size: 35px;
+    header {
+      padding: 24px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 29px;
       font-weight: 900;
-      color: #1769e0;
-      letter-spacing: 2px;
+      letter-spacing: 1px;
     }
 
-    .subtitle {
-      text-align: center;
-      color: #687386;
-      margin: 10px 0 28px;
-      line-height: 1.8;
+    .brand-icon {
+      width: 48px;
+      height: 48px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      color: #061526;
+      background: linear-gradient(135deg, var(--cyan), var(--blue));
+      box-shadow: 0 8px 30px #50e1d044;
     }
+
+    .brand small {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0;
+      margin-top: 3px;
+    }
+
+    .header-tag {
+      border: 1px solid var(--border);
+      background: #ffffff08;
+      padding: 10px 15px;
+      border-radius: 30px;
+      color: var(--cyan);
+      font-size: 12px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 68px 0 35px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      color: var(--cyan);
+      border: 1px solid #50e1d044;
+      background: #50e1d00c;
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-size: 13px;
+    }
+
+    h1 {
+      font-size: clamp(34px, 6vw, 58px);
+      line-height: 1.3;
+      margin: 23px 0 14px;
+      font-weight: 900;
+    }
+
+    h1 span {
+      background: linear-gradient(90deg, var(--cyan), #83baff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: auto;
+      color: var(--muted);
+      line-height: 2;
+      font-size: 16px;
+    }
+
+    .workspace {
+      width: min(720px, 100%);
+      margin: 28px auto 0;
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: 25px;
+      background: linear-gradient(145deg, #142640ee, #0d1b30ee);
+      box-shadow: 0 25px 80px #0005;
+      text-align: right;
+    }
+
+    .field { margin-bottom: 20px; }
 
     label {
       display: block;
-      font-weight: bold;
       margin-bottom: 10px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .optional {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: normal;
     }
 
     input {
       width: 100%;
-      padding: 16px;
-      border: 1px solid #d8deea;
-      border-radius: 12px;
-      font-size: 15px;
+      min-height: 55px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 14px 16px;
       outline: none;
+      color: white;
+      background: #071426;
       direction: ltr;
       text-align: left;
+      transition: .2s;
     }
 
     input:focus {
-      border-color: #1769e0;
-      box-shadow: 0 0 0 3px #1769e022;
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px #50e1d018;
     }
 
-    button {
+    input::placeholder { color: #72849c; }
+
+    .hint {
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.8;
+      margin-top: 8px;
+    }
+
+    .primary {
       width: 100%;
-      padding: 15px;
-      border: none;
-      border-radius: 12px;
-      background: #1769e0;
-      color: white;
+      min-height: 58px;
+      border: 0;
+      border-radius: 14px;
+      color: #071629;
+      font-weight: 900;
       font-size: 17px;
-      font-weight: bold;
       cursor: pointer;
-      margin-top: 17px;
+      background: linear-gradient(100deg, var(--cyan), #80baff);
+      box-shadow: 0 10px 28px #50e1d022;
+      transition: .2s;
     }
 
-    button:disabled {
-      opacity: .6;
-      cursor: not-allowed;
+    .primary:hover { transform: translateY(-2px); }
+    .primary:disabled { opacity: .55; cursor: wait; transform: none; }
+
+    .message {
+      display: none;
+      margin-top: 17px;
+      padding: 13px;
+      border-radius: 12px;
+      line-height: 1.8;
+      font-size: 13px;
+    }
+
+    .message.error {
+      display: block;
+      color: #ffaaaa;
+      background: #ff777714;
+      border: 1px solid #ff777733;
+    }
+
+    .message.info {
+      display: block;
+      color: var(--cyan);
+      background: #50e1d010;
+      border: 1px solid #50e1d033;
     }
 
     .result {
       display: none;
-      margin-top: 25px;
-      padding: 18px;
-      border-radius: 14px;
-      background: #f1f6ff;
-      border: 1px solid #dce8fc;
+      margin-top: 24px;
+      padding: 22px;
+      border-radius: 17px;
+      border: 1px solid #62e6ad44;
+      background: #62e6ad09;
+      animation: appear .35s ease;
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .result h3 {
-      margin: 0 0 15px;
-      color: #1769e0;
+      margin: 0 0 20px;
+      color: var(--success);
+      font-size: 19px;
     }
 
-    .result label {
-      margin-top: 15px;
-      font-size: 14px;
+    .result-item { margin-top: 17px; }
+
+    .result-label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 12px;
     }
 
     .copy-row {
       display: flex;
       gap: 8px;
-      direction: ltr;
+      align-items: stretch;
     }
 
-    .copy-row input {
+    .copy-value {
       min-width: 0;
-      background: white;
+      flex: 1;
+      padding: 14px 12px;
+      border-radius: 11px;
+      background: #071426;
+      border: 1px solid var(--border);
+      color: var(--cyan);
+      direction: ltr;
+      text-align: left;
+      overflow-wrap: anywhere;
+      font-size: 13px;
+      line-height: 1.7;
+      user-select: text;
     }
 
     .copy-btn {
-      width: auto;
-      min-width: 85px;
-      margin: 0;
-      padding: 10px;
-      font-size: 13px;
-    }
-
-    .message {
-      display: none;
-      margin-top: 15px;
-      padding: 12px;
-      border-radius: 10px;
-      font-size: 14px;
-      line-height: 1.7;
-    }
-
-    .error {
-      display: block;
-      background: #fff0f0;
-      color: #bd2929;
-    }
-
-    .success {
-      display: block;
-      background: #eaf9ef;
-      color: #18763b;
-    }
-
-    .note {
-      margin-top: 18px;
-      color: #687386;
+      flex-shrink: 0;
+      border: 1px solid #50e1d044;
+      border-radius: 11px;
+      padding: 0 15px;
+      background: #50e1d012;
+      color: var(--cyan);
+      cursor: pointer;
       font-size: 12px;
+    }
+
+    .copy-btn:hover { background: #50e1d026; }
+
+    .result-note {
+      color: var(--muted);
+      font-size: 11px;
       line-height: 1.8;
+      margin-top: 17px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin: 65px 0;
+    }
+
+    .feature {
+      padding: 23px 17px;
       text-align: center;
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      background: #ffffff06;
+    }
+
+    .feature-icon {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .feature h3 { font-size: 15px; margin: 0 0 9px; }
+    .feature p {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.9;
+      margin: 0;
     }
 
     footer {
-      text-align: center;
-      margin-top: 25px;
-      color: #929bad;
+      border-top: 1px solid var(--border);
+      padding: 25px 0;
+      color: var(--muted);
       font-size: 12px;
+      text-align: center;
+      line-height: 2;
+    }
+
+    @media(max-width:650px) {
+      .hero { padding-top: 43px; }
+      .workspace { padding: 20px 15px; }
+      .features { grid-template-columns: 1fr; margin: 42px 0; }
+      .header-tag { font-size: 10px; padding: 8px 10px; }
+      .brand { font-size: 24px; }
+      .copy-row { flex-direction: column; }
+      .copy-btn { min-height: 43px; }
     }
   </style>
 </head>
 
 <body>
+  <header class="container">
+    <div class="brand">
+      <div class="brand-icon">↗</div>
+      <div>
+        AQX
+        <small>SMART LINK ENGINE</small>
+      </div>
+    </div>
+    <div class="header-tag">⚡ اختصار سريع ومجاني</div>
+  </header>
+
   <main class="container">
-
-    <div class="logo">AQX</div>
-
-    <p class="subtitle">
-      اختصر رابطك بسهولة وسرعة 🚀
-      <br>
-      ضع الرابط الأصلي واحصل على رابطك المختصر.
-    </p>
-
-    <form id="shortenForm">
-      <label for="originalUrl">الرابط الأصلي</label>
-
-      <input
-        id="originalUrl"
-        type="url"
-        placeholder="https://example.com"
-        autocomplete="url"
-        required
-      >
-
-      <button id="submitBtn" type="submit">
-        اختصر الرابط الآن
-      </button>
-    </form>
-
-    <div id="message" class="message"></div>
-
-    <section id="result" class="result">
-      <h3>تم اختصار الرابط بنجاح 🎉</h3>
-
-      <label>الرابط المختصر</label>
-      <div class="copy-row">
-        <input id="shortUrl" readonly>
-        <button class="copy-btn" type="button"
-          onclick="copyField('shortUrl')">
-          نسخ
-        </button>
-      </div>
-
-      <label>رمز الاستعلام الخاص بالرابط</label>
-      <div class="copy-row">
-        <input id="analyticsCode" readonly>
-        <button class="copy-btn" type="button"
-          onclick="copyField('analyticsCode')">
-          نسخ
-        </button>
-      </div>
-
-      <p class="note">
-        احتفظ برمز الاستعلام في مكان آمن.
-        لن يتم عرضه مرة أخرى بعد مغادرة هذه النتيجة.
+    <section class="hero">
+      <span class="eyebrow">مرحبًا بك في الجيل الجديد من اختصار الروابط</span>
+      <h1>رابطك الطويل؟<br><span>خلّيه قصير وذكي.</span></h1>
+      <p>
+        اختصر روابطك بسهولة، وشاركها في أي مكان.
+        احصل على رابط مختصر ورمز خاص للاستعلام عن إحصائيات الرابط.
       </p>
+
+      <div class="workspace">
+        <form id="shortenForm">
+          <div class="field">
+            <label for="originalUrl">الرابط الأصلي</label>
+            <input
+              id="originalUrl"
+              type="url"
+              placeholder="https://example.com/your-long-link"
+              autocomplete="url"
+              required
+              maxlength="4096"
+            >
+            <div class="hint">أدخل الرابط الكامل الذي تريد اختصاره، ويجب أن يبدأ بـ https:// أو http://</div>
+          </div>
+
+          <div class="field">
+            <label for="customAlias">
+              رمز مخصص للرابط
+              <span class="optional">(اختياري)</span>
+            </label>
+            <input
+              id="customAlias"
+              type="text"
+              placeholder="my-link"
+              maxlength="32"
+              pattern="[A-Za-z0-9_-]{3,32}"
+              autocomplete="off"
+            >
+            <div class="hint">من 3 إلى 32 حرفًا أو رقمًا، ويسمح بالشرطة والشرطة السفلية. يجب أن يكون الرمز متاحًا.</div>
+          </div>
+
+          <div class="field">
+            <label for="linkTitle">
+              اسم الرابط
+              <span class="optional">(اختياري)</span>
+            </label>
+            <input
+              id="linkTitle"
+              type="text"
+              placeholder="مثال: رابط المتجر"
+              maxlength="200"
+            >
+          </div>
+
+          <button class="primary" id="submitBtn" type="submit">
+            اختصر الرابط الآن ←
+          </button>
+        </form>
+
+        <div id="message" class="message" role="status" aria-live="polite"></div>
+
+        <section id="result" class="result" aria-live="polite">
+          <h3>✓ تم إنشاء رابطك بنجاح</h3>
+
+          <div class="result-item">
+            <span class="result-label">الرابط المختصر</span>
+            <div class="copy-row">
+              <div class="copy-value" id="shortUrl"></div>
+              <button class="copy-btn" type="button" data-copy="shortUrl">نسخ الرابط</button>
+            </div>
+          </div>
+
+          <div class="result-item">
+            <span class="result-label">رمز الاستعلام عن الإحصائيات</span>
+            <div class="copy-row">
+              <div class="copy-value" id="analyticsCode"></div>
+              <button class="copy-btn" type="button" data-copy="analyticsCode">نسخ الرمز</button>
+            </div>
+          </div>
+
+          <p class="result-note">
+            احتفظ برمز الاستعلام. يمكنك استخدامه للاستعلام عن إحصائيات الرابط.
+            ويمكنك أيضًا الاستعلام باستخدام الرابط الأصلي أو المختصر وفق آلية المحرك.
+          </p>
+        </section>
+      </div>
     </section>
 
-    <footer>
-      © AQX — اختصر برابطك، واستعلم برابطك أو رمزك فقط.
-    </footer>
+    <section class="features">
+      <article class="feature">
+        <div class="feature-icon">⚡</div>
+        <h3>اختصار سريع</h3>
+        <p>حوّل الروابط الطويلة إلى روابط مختصرة سهلة المشاركة.</p>
+      </article>
 
+      <article class="feature">
+        <div class="feature-icon">🔐</div>
+        <h3>رمز استعلام خاص</h3>
+        <p>احصل على رمز مخصص للاستعلام عن إحصائيات رابطك.</p>
+      </article>
+
+      <article class="feature">
+        <div class="feature-icon">📊</div>
+        <h3>إحصائيات الروابط</h3>
+        <p>استخدم رمزك أو رابطك للاستعلام عن بيانات التحويل المتاحة.</p>
+      </article>
+    </section>
   </main>
 
+  <footer>
+    <div class="container">
+      <strong>AQX</strong> — اختصر برابطك، واستعلم برابطك أو رمزك فقط.
+      <br>
+      © <span id="year"></span> AQX Engine. جميع الحقوق محفوظة.
+    </div>
+  </footer>
+
   <script>
-    // عنوان محرك AQX الحالي
-    const API_URL =
+    "use strict";
+
+    // إعدادات الاتصال بمحرك AQX
+    const API_BASE =
       "https://vuszqzgldbsscuxdfhdz.supabase.co/functions/v1/aqx-engine";
 
+    // مفتاح النشر العام فقط، وليس مفتاحًا سريًا.
+    const PUBLIC_KEY =
+      "sb_publishable_cI7C0sL9M4OLvsa-JGAAFQ_KfqlkI7X";
+
     const form = document.getElementById("shortenForm");
+    const urlInput = document.getElementById("originalUrl");
+    const aliasInput = document.getElementById("customAlias");
+    const titleInput = document.getElementById("linkTitle");
     const submitBtn = document.getElementById("submitBtn");
     const message = document.getElementById("message");
     const result = document.getElementById("result");
 
-    form.addEventListener("submit", async function(event) {
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    function showMessage(text, type) {
+      message.textContent = text;
+      message.className = "message " + type;
+    }
+
+    function hideMessage() {
+      message.textContent = "";
+      message.className = "message";
+    }
+
+    function validHttpUrl(value) {
+      try {
+        const u = new URL(value);
+        return (
+          ["http:", "https:"].includes(u.protocol) &&
+          !u.username &&
+          !u.password
+        );
+      } catch {
+        return false;
+      }
+    }
+
+    function showResult(data) {
+      document.getElementById("shortUrl").textContent = data.short_url;
+      document.getElementById("analyticsCode").textContent =
+        data.analytics_code;
+
+      result.style.display = "block";
+      result.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+
+    form.addEventListener("submit", async (event) => {
       event.preventDefault();
 
+      hideMessage();
       result.style.display = "none";
-      message.className = "message";
-      message.textContent = "";
 
-      const originalUrl =
-        document.getElementById("originalUrl").value.trim();
+      const originalUrl = urlInput.value.trim();
+      const alias = aliasInput.value.trim();
+      const title = titleInput.value.trim();
 
-      let parsedUrl;
+      if (!validHttpUrl(originalUrl)) {
+        showMessage("يرجى إدخال رابط صحيح يبدأ بـ http:// أو https://", "error");
+        return;
+      }
 
-      try {
-        parsedUrl = new URL(originalUrl);
-
-        if (!["http:", "https:"].includes(parsedUrl.protocol)) {
-          throw new Error("invalid protocol");
-        }
-      } catch {
-        showMessage("من فضلك أدخل رابطًا صحيحًا يبدأ بـ https:// أو http://", "error");
+      if (alias && !/^[A-Za-z0-9_-]{3,32}$/.test(alias)) {
+        showMessage("الرمز المخصص يجب أن يكون من 3 إلى 32 حرفًا أو رقمًا.", "error");
         return;
       }
 
       submitBtn.disabled = true;
-      submitBtn.textContent = "جارٍ اختصار الرابط...";
+      submitBtn.textContent = "جارٍ إنشاء الرابط...";
+      showMessage("يتم الاتصال بمحرك AQX وإنشاء الرابط...", "info");
 
       try {
-        const response = await fetch(API_URL + "/shorten", {
+        const response = await fetch(API_BASE + "/shorten", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "apikey": PUBLIC_KEY
           },
           body: JSON.stringify({
-            original_url: parsedUrl.href
-          })
+            url: originalUrl,
+            alias: alias,
+            title: title
+          }),
+          cache: "no-store"
         });
 
-        const data = await response.json();
+        const data = await response.json().catch(() => ({}));
 
-        if (!response.ok || !data.short_url) {
+        if (!response.ok || !data.ok) {
+          if (response.status === 409) {
+            throw new Error("الرمز المخصص مستخدم بالفعل. اختر رمزًا آخر.");
+          }
+
+          if (response.status === 400) {
+            throw new Error(data.message || "البيانات المدخلة غير صحيحة.");
+          }
+
           throw new Error(
-            data.message || data.error || "تعذر اختصار الرابط."
+            data.message || "تعذر إنشاء الرابط. حاول مرة أخرى."
           );
         }
 
-        document.getElementById("shortUrl").value =
-          data.short_url;
+        if (
+          typeof data.short_url !== "string" ||
+          typeof data.analytics_code !== "string" ||
+          typeof data.short_code !== "string"
+        ) {
+          throw new Error("استجابة المحرك غير مكتملة. يرجى مراجعة إعدادات API.");
+        }
 
-        document.getElementById("analyticsCode").value =
-          data.analytics_code || "لم يُرجع المحرك رمزًا";
+        hideMessage();
+        showResult(data);
 
-        result.style.display = "block";
-
-        showMessage("تم إنشاء الرابط المختصر بنجاح.", "success");
+        showMessage("تم إنشاء الرابط بنجاح وحفظه في محرك AQX.", "info");
 
       } catch (error) {
         showMessage(
@@ -301,31 +597,35 @@
         );
       } finally {
         submitBtn.disabled = false;
-        submitBtn.textContent = "اختصر الرابط الآن";
+        submitBtn.textContent = "اختصر الرابط الآن ←";
       }
     });
 
-    async function copyField(id) {
-      const input = document.getElementById(id);
+    // نسخ الرابط أو رمز الاستعلام
+    document.querySelectorAll("[data-copy]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const target = document.getElementById(button.dataset.copy);
+        const value = target.textContent.trim();
 
-      if (!input.value || input.value.includes("لم يُرجع")) {
-        return;
-      }
+        if (!value) return;
 
-      try {
-        await navigator.clipboard.writeText(input.value);
-        showMessage("تم النسخ بنجاح ✅", "success");
-      } catch {
-        input.select();
-        document.execCommand("copy");
-        showMessage("تم النسخ.", "success");
-      }
-    }
+        try {
+          await navigator.clipboard.writeText(value);
+          const oldText = button.textContent;
+          button.textContent = "تم النسخ ✓";
 
-    function showMessage(text, type) {
-      message.textContent = text;
-      message.className = "message " + type;
-    }
+          setTimeout(() => {
+            button.textContent = oldText;
+          }, 1800);
+
+        } catch {
+          showMessage(
+            "تعذر النسخ التلقائي. اضغط مطولًا على النص لنسخه.",
+            "error"
+          );
+        }
+      });
+    });
   </script>
 </body>
-  </html>
+</html>
