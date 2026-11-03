@@ -1,0 +1,329 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101827">
+  <title>AQX | اختصار الروابط</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Tahoma, Arial, sans-serif;
+      background: linear-gradient(145deg, #101827, #172b45);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 510px;
+      background: #fff;
+      color: #172033;
+      border-radius: 22px;
+      padding: 30px 24px;
+      box-shadow: 0 20px 60px #0005;
+    }
+
+    .logo {
+      text-align: center;
+      font-size: 35px;
+      font-weight: 900;
+      color: #1769e0;
+      letter-spacing: 2px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #687386;
+      margin: 10px 0 28px;
+      line-height: 1.8;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    input {
+      width: 100%;
+      padding: 16px;
+      border: 1px solid #d8deea;
+      border-radius: 12px;
+      font-size: 15px;
+      outline: none;
+      direction: ltr;
+      text-align: left;
+    }
+
+    input:focus {
+      border-color: #1769e0;
+      box-shadow: 0 0 0 3px #1769e022;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 12px;
+      background: #1769e0;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 17px;
+    }
+
+    button:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+
+    .result {
+      display: none;
+      margin-top: 25px;
+      padding: 18px;
+      border-radius: 14px;
+      background: #f1f6ff;
+      border: 1px solid #dce8fc;
+    }
+
+    .result h3 {
+      margin: 0 0 15px;
+      color: #1769e0;
+    }
+
+    .result label {
+      margin-top: 15px;
+      font-size: 14px;
+    }
+
+    .copy-row {
+      display: flex;
+      gap: 8px;
+      direction: ltr;
+    }
+
+    .copy-row input {
+      min-width: 0;
+      background: white;
+    }
+
+    .copy-btn {
+      width: auto;
+      min-width: 85px;
+      margin: 0;
+      padding: 10px;
+      font-size: 13px;
+    }
+
+    .message {
+      display: none;
+      margin-top: 15px;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .error {
+      display: block;
+      background: #fff0f0;
+      color: #bd2929;
+    }
+
+    .success {
+      display: block;
+      background: #eaf9ef;
+      color: #18763b;
+    }
+
+    .note {
+      margin-top: 18px;
+      color: #687386;
+      font-size: 12px;
+      line-height: 1.8;
+      text-align: center;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 25px;
+      color: #929bad;
+      font-size: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+
+    <div class="logo">AQX</div>
+
+    <p class="subtitle">
+      اختصر رابطك بسهولة وسرعة 🚀
+      <br>
+      ضع الرابط الأصلي واحصل على رابطك المختصر.
+    </p>
+
+    <form id="shortenForm">
+      <label for="originalUrl">الرابط الأصلي</label>
+
+      <input
+        id="originalUrl"
+        type="url"
+        placeholder="https://example.com"
+        autocomplete="url"
+        required
+      >
+
+      <button id="submitBtn" type="submit">
+        اختصر الرابط الآن
+      </button>
+    </form>
+
+    <div id="message" class="message"></div>
+
+    <section id="result" class="result">
+      <h3>تم اختصار الرابط بنجاح 🎉</h3>
+
+      <label>الرابط المختصر</label>
+      <div class="copy-row">
+        <input id="shortUrl" readonly>
+        <button class="copy-btn" type="button"
+          onclick="copyField('shortUrl')">
+          نسخ
+        </button>
+      </div>
+
+      <label>رمز الاستعلام الخاص بالرابط</label>
+      <div class="copy-row">
+        <input id="analyticsCode" readonly>
+        <button class="copy-btn" type="button"
+          onclick="copyField('analyticsCode')">
+          نسخ
+        </button>
+      </div>
+
+      <p class="note">
+        احتفظ برمز الاستعلام في مكان آمن.
+        لن يتم عرضه مرة أخرى بعد مغادرة هذه النتيجة.
+      </p>
+    </section>
+
+    <footer>
+      © AQX — اختصر برابطك، واستعلم برابطك أو رمزك فقط.
+    </footer>
+
+  </main>
+
+  <script>
+    // عنوان محرك AQX الحالي
+    const API_URL =
+      "https://vuszqzgldbsscuxdfhdz.supabase.co/functions/v1/aqx-engine";
+
+    const form = document.getElementById("shortenForm");
+    const submitBtn = document.getElementById("submitBtn");
+    const message = document.getElementById("message");
+    const result = document.getElementById("result");
+
+    form.addEventListener("submit", async function(event) {
+      event.preventDefault();
+
+      result.style.display = "none";
+      message.className = "message";
+      message.textContent = "";
+
+      const originalUrl =
+        document.getElementById("originalUrl").value.trim();
+
+      let parsedUrl;
+
+      try {
+        parsedUrl = new URL(originalUrl);
+
+        if (!["http:", "https:"].includes(parsedUrl.protocol)) {
+          throw new Error("invalid protocol");
+        }
+      } catch {
+        showMessage("من فضلك أدخل رابطًا صحيحًا يبدأ بـ https:// أو http://", "error");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "جارٍ اختصار الرابط...";
+
+      try {
+        const response = await fetch(API_URL + "/shorten", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            original_url: parsedUrl.href
+          })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.short_url) {
+          throw new Error(
+            data.message || data.error || "تعذر اختصار الرابط."
+          );
+        }
+
+        document.getElementById("shortUrl").value =
+          data.short_url;
+
+        document.getElementById("analyticsCode").value =
+          data.analytics_code || "لم يُرجع المحرك رمزًا";
+
+        result.style.display = "block";
+
+        showMessage("تم إنشاء الرابط المختصر بنجاح.", "success");
+
+      } catch (error) {
+        showMessage(
+          error.message || "حدث خطأ أثناء الاتصال بمحرك AQX.",
+          "error"
+        );
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "اختصر الرابط الآن";
+      }
+    });
+
+    async function copyField(id) {
+      const input = document.getElementById(id);
+
+      if (!input.value || input.value.includes("لم يُرجع")) {
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(input.value);
+        showMessage("تم النسخ بنجاح ✅", "success");
+      } catch {
+        input.select();
+        document.execCommand("copy");
+        showMessage("تم النسخ.", "success");
+      }
+    }
+
+    function showMessage(text, type) {
+      message.textContent = text;
+      message.className = "message " + type;
+    }
+  </script>
+</body>
+  </html>
